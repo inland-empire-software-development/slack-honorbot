@@ -1,0 +1,24 @@
+{
+  "name": "slack-honorbot",
+  "version": "1.0.0",
+  "description": "A slack bot for giving honors.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeyItsFelipe/slack-honorbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HeyItsFelipe/slack-honorbot/issues"
+  },
+  "homepage": "https://github.com/HeyItsFelipe/slack-honorbot#readme",
+  "dependencies": {
+    "@slack/bolt": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
