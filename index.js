@@ -1,5 +1,13 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
+const mongoose = require('mongoose');
+
+// MongoDB
+const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Database connected!  🎉'))
+    .catch(err => console.log(err));
+
 
 // Initializes your app with your bot token and signing secret
 const app = new App({
