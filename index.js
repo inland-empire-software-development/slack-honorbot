@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
 // MongoDB
 const MONGO_URI = process.env.MONGO_URI;
@@ -19,6 +20,12 @@ app.message(':medal:', async ({ message, say }) => {
     let honoredUserIds = getUsers(message);
 
     if (honoredUserIds.length > 0) {
+        honoredUserIds.forEach((honoredUserId) => {
+            User.findOneAndUpdate({ slackId: honoredUserId }, { $inc: { honorAmount: 1 } }, { new: true, upsert: true }).then((user) => {
+                console.log(">>>User", user);
+            });
+        })
+
         let honoredUsers = honoredUserIds.join(', ');
 
         // say() sends a message to the channel where the event was triggered
