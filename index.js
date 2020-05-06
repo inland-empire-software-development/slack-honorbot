@@ -20,11 +20,26 @@ app.message(':medal:', async ({ message, say }) => {
     let honoredUserIds = getUsers(message);
 
     if (honoredUserIds.length > 0) {
-        honoredUserIds.forEach((honoredUserId) => {
-            User.findOneAndUpdate({ slackId: honoredUserId }, { $inc: { honorAmount: 1 } }, { new: true, upsert: true }).then((user) => {
-                console.log(">>>User", user);
-            });
-        })
+        honoredUserIds.forEach(async (honoredUserId) => {
+            let cleanHonoredUserId = honoredUserId.replace(/[@<>]/g, "");
+
+            // Ref: https://api.slack.com/methods/users.info
+            try {
+                const result = await app.client.users.info({
+                    token: process.env.SLACK_BOT_TOKEN,
+                    user: cleanHonoredUserId
+                });
+
+                console.log(result);
+                User.findOneAndUpdate({ slackId: honoredUserId, slackName: result.user.real_name }, { $inc: { honorAmount: 1 } }, { new: true, upsert: true }).then((user) => {
+                    console.log(">>>User", user);
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
+
+        });
 
         let honoredUsers = honoredUserIds.join(', ');
 

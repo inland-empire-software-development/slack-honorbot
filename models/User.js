@@ -5,6 +5,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    slackName: {
+        type: String,
+        required: true,
+    },
     honorAmount: {
         type: Number,
         required: true,
