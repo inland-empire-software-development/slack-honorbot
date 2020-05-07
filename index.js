@@ -2,6 +2,7 @@ require('dotenv').config();
 const { App } = require('@slack/bolt');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const appHome = require('./appHome');
 
 // MongoDB
 const MONGO_URI = process.env.MONGO_URI;
@@ -15,6 +16,26 @@ const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
     signingSecret: process.env.SLACK_SIGNING_SECRET
 });
+
+
+app.event('app_home_opened', async ({ event, context, payload }) => {
+
+    // Display App Home
+    const homeView = await appHome.createHome();
+
+    try {
+        const result = await app.client.views.publish({
+            token: context.botToken,
+            user_id: event.user,
+            view: homeView
+        });
+
+    } catch (e) {
+        app.error(e);
+    }
+
+});
+
 
 app.message(':medal:', async ({ message, say }) => {
     let honoredUserIds = getUsers(message);
@@ -31,7 +52,7 @@ app.message(':medal:', async ({ message, say }) => {
                 });
 
                 console.log(result);
-                User.findOneAndUpdate({ slackId: honoredUserId, slackName: result.user.real_name }, { $inc: { honorAmount: 1 } }, { new: true, upsert: true }).then((user) => {
+                User.findOneAndUpdate({ slackId: honoredUserId, slackName: result.user.real_name }, { $inc: { honorCount: 1 } }, { new: true, upsert: true }).then((user) => {
                     console.log(">>>User", user);
                 });
             }

@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    honorAmount: {
+    honorCount: {
         type: Number,
         required: true,
         default: 0
