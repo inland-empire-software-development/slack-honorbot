@@ -17,7 +17,7 @@ const app = new App({
     signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
-
+// Triggered whenever App Home is opened
 app.event('app_home_opened', async ({ event, context, payload }) => {
 
     // Display App Home
@@ -36,7 +36,7 @@ app.event('app_home_opened', async ({ event, context, payload }) => {
 
 });
 
-
+// Triggers whenever a :medal: is in a message
 app.message(':medal:', async ({ message, say }) => {
     let honoredUserIds = getUsers(message);
 

@@ -1,5 +1,6 @@
 const User = require('./models/User');
 
+// Creates the view for the App Home 
 const updateView = async () => {
 
     let result = await User.find({}).sort({ honorCount: -1 }).exec();
@@ -45,8 +46,7 @@ const updateView = async () => {
 };
 
 
-/* Display App Home */
-
+// Display App Home 
 const createHome = async () => {
 
     const userView = await updateView();
