@@ -8,7 +8,7 @@
 
 ## Prerequisites
 Development for this app uses the following technologies:<br />
-- [Bolt] (https://slack.dev/bolt-js/tutorial/getting-started)
+- [Bolt](https://slack.dev/bolt-js/tutorial/getting-started)
 - Ngrok
 - Node
 - Mongo
@@ -23,7 +23,7 @@ Navigate to where you want to clone the repo.<br />
 Clone the repo to your computer using the `git clone`.<br />
 Navigate into the cloned repo.<br />
 Type `npm install` to install dependencies.<br />
-You will also need setup a Mongo database and get it's URI, you may use (Mongo Atlas)[https://www.mongodb.com/cloud/atlas].
+You will also need setup a Mongo database and get it's URI, you may use [Mongo Atlas](https://www.mongodb.com/cloud/atlas).
 
 
 ## Run
